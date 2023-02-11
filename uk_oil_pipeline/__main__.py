@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import logging
 from pathlib import Path
+import argparse
 
 url = "https://www.gov.uk/government/statistics/oil-and-oil-products-section-3-energy-trends"
 date_mapping = {"1": "/03/31",
@@ -183,9 +184,13 @@ def main():
     """
     Main function to run the pipeline
     """
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path")
+    args = parser.parse_args()
+    target = Path(args.path)
     link = getLink(url)
     filename = getFileName(link)
-    checkNewLink(link)
+    # checkNewLink(link)
     df = pullData(link)
     df = correctDates(df)
     df = correctColNames(df)
@@ -193,8 +198,8 @@ def main():
     checkColsVSPrev(df)
     profiling_df = compileProfilingReport(df)
     # Need to adjust the below to take a command line arg
-    profiling_df.to_csv(fr'C:\Users\Louis\OneDrive\Documents\petro_test\{filename}_data_profiling.csv')
-    df.to_csv(fr'C:\Users\Louis\OneDrive\Documents\petro_test\{filename}.csv')
+    profiling_df.to_csv(fr'{target}\{filename}_data_profiling.csv')
+    df.to_csv(fr'{target}\{filename}.csv')
     logging.info("Complete!")
 
 
