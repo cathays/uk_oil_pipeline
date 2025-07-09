@@ -1,4 +1,4 @@
-# uk_oil_pipeline
+# UK Oil Pipeline
 
 Pipeline created to extract the dataset "Supply and use of crude oil, natural gas liquids and feedstocks" from
 https://www.gov.uk/government/statistics/oil-and-oil-products-section-3-energy-trends. The data is taken from the
